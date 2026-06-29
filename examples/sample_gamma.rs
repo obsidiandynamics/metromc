@@ -19,9 +19,8 @@ fn main() {
 
     let mut buckets = [0_usize; NUM_BUCKETS];
     let span = RANGE.end() - RANGE.start();
-    for sample in sampler.skip(100).take(10_000_000) {
-        // println!("{rand:.6}");
-        let bucket = ((sample - RANGE.start()) / span * NUM_BUCKETS as f64) as usize;
+    for sample in sampler.skip(100).take(1_000_000_000) {
+        let bucket = usize::min(((sample - RANGE.start()) / span * NUM_BUCKETS as f64).round() as usize, NUM_BUCKETS - 1);
         buckets[bucket] += 1;
     }
 

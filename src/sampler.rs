@@ -30,6 +30,7 @@ impl<R: Rand, P: Pdf> Sampler<R, P> {
     #[inline(always)]
     pub fn next_sample(&mut self) -> f64 {
         let next = random_f64(&mut self.config.rand) * self.span + self.config.range.start();
+        // let next = random_f64(&mut self.config.rand) * self.span - self.span / 2.0 + self.current;
         let prob_next = self.config.dist.prob(next);
         //println!("current: {:.3}, prob_current: {:.3}, next: {next:.3}, prob_next: {prob_next:.3}", self.current, self.prob_current);
         if prob_next >= self.prob_current {
